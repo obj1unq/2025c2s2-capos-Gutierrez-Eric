@@ -1,12 +1,19 @@
 object rolando {
     var tamañoMochila = 2
     const mochila = []
+    const ordenEncuentra = []
 
     method recolectar(artefacto){
+        ordenEncuentra.add(artefacto)
         if(self.cantArtefactos() < tamañoMochila){
             mochila.add(artefacto)
         }
     }
+
+    method ordenEncuentra(){
+        return ordenEncuentra
+    }
+
     method cantArtefactos(){
         return mochila.size()
     }
@@ -27,6 +34,7 @@ object rolando {
     method poseeArtefacto(artefacto){
         return (self.poseciones()).contains(artefacto)
     }
+
 }
 
 object castilloDePiedra {
