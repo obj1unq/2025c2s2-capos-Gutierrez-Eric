@@ -4,9 +4,32 @@ object rolando {
     const mochila = #{}
     const ordenEncuentra = []
     var poderBase = 5
-    
+    const moradasConquistadas = #{}
 
-    method batallar(){ //REVISAR
+    method esPoderoso (){
+        
+    }
+  
+    method combateContra(enemigo){
+        if(self.puedeCombatir(enemigo)){
+            self.batallar()
+            self.conquistarFortaleza(enemigo)
+        }
+    }
+
+    method moradasConquistadas (){
+        return moradasConquistadas
+    }
+
+    method conquistarFortaleza(enemigo){
+        moradasConquistadas.add(enemigo.hogar())
+    }
+    
+    method puedeCombatir(enemigo){
+        return (self.poderTotal() > enemigo.poder())
+    }
+
+    method batallar(){ 
         mochila.forEach({artefacto => artefacto.sumarUso()})
         poderBase = poderBase + 1
     }
@@ -32,6 +55,10 @@ object rolando {
         if(mochila.size() < tamañoMochila){
             mochila.add(artefacto)
         }
+    }
+
+    method artefactoConMasPoder(){
+        return hogar.almacen().map({artefacto => artefacto.poderBase()}).max()
     }
 
     method ordenEncuentra(){
@@ -70,10 +97,9 @@ object castilloDePiedra {
     }
 }
 
-///REVISAR
-
 object espadaDelDestino{
     var usos = 0
+    const poderBase = 7
     method poderPara(personaje){
        if(usos == 0){
         return personaje.poderBase()
@@ -81,15 +107,60 @@ object espadaDelDestino{
         return personaje.poderBase()/2
        }
     }
+
+    method poderBase(){
+        return poderBase
+    }
     method sumarUso(){
         usos = usos + 1
     }
 }
 
 object libroDeHechizos {
+    const poderes = []
+    var usos = 0
+    method poderPara(personaje){
+       if(poderes.size() > 0){
+        return (poderes.first().poderAporta(personaje))
+       } else {
+        return 0
+       }
+    }
 
+    method poderes(_poderes){
+        poderes.add(_poderes)
+    }
+
+    method poderes(){
+        return poderes
+    }
+    method sumarUso(){
+        usos = usos +1
+        poderes.remove(poderes.first())
+    }
 }
 
+object bendicion {
+
+    method poderAporta(personaje){
+        return 4
+    }
+}
+
+object invisibilidad {
+
+    method poderAporta(personaje){
+        return personaje.poderBase()
+    }
+}
+
+object invocacion {
+
+    method poderAporta(personaje){
+        return personaje.artefactoConMasPoder()
+    }
+
+}
 object collarDivino {
     const poderBase = 3
     var usos = 0
@@ -100,6 +171,10 @@ object collarDivino {
         }else {
             return poderBase + usos
         }
+    }
+
+    method poderBase(){
+        return poderBase
     }
     method sumarUso(){
         usos = usos + 1
@@ -115,4 +190,55 @@ object armaduraDeAceroValyrio {
     method sumarUso(){
         usos = usos + 1
     }
+
+    method poderBase(){
+        return poderBase
+    }
+}
+
+object caterina {
+    const hogar = fortalezaDeAcero
+
+    method hogar(){
+        return hogar
+    }
+    method poder(){
+        return 28
+    }
+}
+
+object archibaldo {
+    const hogar  = palacioDeMarmol
+
+    method hogar(){
+        return hogar
+    }
+
+    method poder(){
+        return 16
+    }
+}
+
+object astra {
+    const hogar = torreDeMarfil
+
+    method hogar(){
+        return hogar
+    }
+    
+    method poder(){
+        return 14
+    }
+}
+
+object torreDeMarfil{
+
+}
+
+object palacioDeMarmol{
+
+}
+
+object fortalezaDeAcero {
+
 }

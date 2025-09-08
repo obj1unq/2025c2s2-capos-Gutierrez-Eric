@@ -30,6 +30,51 @@ describe "Capos" {
         assert.equals([espadaDelDestino,libroDeHechizos,collarDivino,armaduraDeAceroValyrio,collarDivino],rolando.ordenEncuentra())
     }
 
+    test "Rolando incrementa su poder al  batallar"{
+        rolando.nuevoTamañoMochila(3)
+        rolando.poderBase(5)
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(armaduraDeAceroValyrio)
+        rolando.recolectar(collarDivino)
+        assert.equals(19, rolando.poderTotal())
+        rolando.batallar()
+        assert.equals(19,rolando.poderTotal())
+        rolando.batallar()
+        assert.equals(21.5,rolando.poderTotal())
+        rolando.batallar()
+        assert.equals(24,rolando.poderTotal())
+    }
 
+    test "Rolando conquistar fortaleza"{
+        rolando.nuevoTamañoMochila(3)
+        rolando.poderBase(5)
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(armaduraDeAceroValyrio)
+        rolando.recolectar(collarDivino)
+        rolando.combateContra(archibaldo)
+        assert.equals(#{palacioDeMarmol},rolando.moradasConquistadas())
+        rolando.combateContra(astra)
+        assert.equals(#{palacioDeMarmol,torreDeMarfil},rolando.moradasConquistadas())
+        rolando.combateContra(caterina)
+        assert.equals(#{palacioDeMarmol,torreDeMarfil},rolando.moradasConquistadas())
+    }
 
+    test "Rolando libro de hechizos"{
+        rolando.nuevoTamañoMochila(3)
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(armaduraDeAceroValyrio)
+        rolando.recolectar(collarDivino)
+        rolando.llegaAlHogar()
+        libroDeHechizos.poderes(bendicion)
+        libroDeHechizos.poderes(invisibilidad)
+        libroDeHechizos.poderes(invocacion)
+        rolando.recolectar(libroDeHechizos)
+        assert.equals(4,rolando.sumatoriaPoderArtefactos())
+        rolando.batallar()
+        assert.equals(6,rolando.sumatoriaPoderArtefactos())
+        rolando.batallar()
+        assert.equals(7,rolando.sumatoriaPoderArtefactos())
+        rolando.batallar()
+        assert.equals(0,rolando.sumatoriaPoderArtefactos())
+    }
 }
