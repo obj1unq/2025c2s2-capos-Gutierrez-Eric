@@ -51,12 +51,9 @@ describe "Capos" {
         rolando.recolectar(espadaDelDestino)
         rolando.recolectar(armaduraDeAceroValyrio)
         rolando.recolectar(collarDivino)
-        rolando.combateContra(archibaldo)
-        assert.equals(#{palacioDeMarmol},rolando.moradasConquistadas())
-        rolando.combateContra(astra)
-        assert.equals(#{palacioDeMarmol,torreDeMarfil},rolando.moradasConquistadas())
-        rolando.combateContra(caterina)
-        assert.equals(#{palacioDeMarmol,torreDeMarfil},rolando.moradasConquistadas())
+        rolando.tierrasQuePuedeConquistar(tierraErethia)
+        assert.equals([palacioDeMarmol,torreDeMarfil], rolando.tierrasQuePuedeConquistar(tierraErethia))
+
     }
 
     test "Rolando libro de hechizos"{

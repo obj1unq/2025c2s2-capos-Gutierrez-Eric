@@ -7,15 +7,17 @@ object rolando {
     const moradasConquistadas = #{}
 
     method esPoderoso (){
-        
+
     }
   
-    method combateContra(enemigo){
-        if(self.puedeCombatir(enemigo)){
-            self.batallar()
-            self.conquistarFortaleza(enemigo)
-        }
+    method enemigosQuePuedeDerrotar(enemigos){
+        return enemigos.filter({enemigo => enemigo.puedeSerVencidoPor(self)})
     }
+
+    method tierrasQuePuedeConquistar(tierraErethia){
+        return (self.enemigosQuePuedeDerrotar(tierraErethia.listaEnemigos())).map({enemigo => enemigo.hogar()})
+
+}
 
     method moradasConquistadas (){
         return moradasConquistadas
@@ -205,6 +207,9 @@ object caterina {
     method poder(){
         return 28
     }
+    method puedeSerVencidoPor(personaje){
+      return personaje.poderTotal() > self.poder()
+    }
 }
 
 object archibaldo {
@@ -216,6 +221,10 @@ object archibaldo {
 
     method poder(){
         return 16
+    }
+
+    method puedeSerVencidoPor(personaje){
+         return personaje.poderTotal() > self.poder()
     }
 }
 
@@ -229,6 +238,9 @@ object astra {
     method poder(){
         return 14
     }
+    method puedeSerVencidoPor(personaje){
+        return personaje.poderTotal() > self.poder()
+    }
 }
 
 object torreDeMarfil{
@@ -241,4 +253,29 @@ object palacioDeMarmol{
 
 object fortalezaDeAcero {
 
+}
+
+object tierraErethia {
+    const listaEnemigos = [caterina,archibaldo,astra]
+
+    method listaEnemigos(){
+        return listaEnemigos
+    }
+    method agregarEnemigo(enemigo){
+        listaEnemigos.add(enemigo)
+    }
+
+    method primerEnemigo(){
+        return listaEnemigos.first()
+    }
+    method removerEnemigo(){
+        listaEnemigos.remove(self.primerEnemigo())
+    }
+    method cantidadEnemigos(){
+        return listaEnemigos.size()
+    }
+
+    method dominiosDeEnemigos(){
+        return listaEnemigos.map({enemigo => enemigo.hogar()})
+    }
 }
