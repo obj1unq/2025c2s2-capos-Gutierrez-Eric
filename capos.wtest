@@ -1,0 +1,23 @@
+import capos.*
+
+describe "Capos" {
+    test "Rolando puede recolectar 2 artefactos"{
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(libroDeHechizos)
+        assert.equals(2,rolando.cantArtefactos())
+        assert.equals([espadaDelDestino,libroDeHechizos], rolando.artefactos())
+    }
+
+    test "Rolando guarda objetos en el castillo"{
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(libroDeHechizos)
+        assert.equals(2,rolando.cantArtefactos())
+        assert.equals([espadaDelDestino,libroDeHechizos], rolando.artefactos())
+        rolando.llegaAlCastillo()
+        assert.equals(0,rolando.cantArtefactos())
+        assert.equals([espadaDelDestino,libroDeHechizos], castilloDePiedra.almacen())
+    }
+
+
+
+}

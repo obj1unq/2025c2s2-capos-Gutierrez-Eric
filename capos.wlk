@@ -1,6 +1,6 @@
 object rolando {
-    const tamañoMochila = 2
-    const mochila =[]
+    var tamañoMochila = 2
+    const mochila = []
 
     method recolectar(artefacto){
         if(self.cantArtefactos() < tamañoMochila){
@@ -13,7 +13,34 @@ object rolando {
     method artefactos(){
         return mochila
     }
+    method nuevoTamañoMochila(_tamañoMochila){
+        tamañoMochila = _tamañoMochila
+    }
+    method llegaAlCastillo(){
+        castilloDePiedra.almacenarArtefactos(mochila)
+        mochila.clear()
+    }
+    method poseciones(){
+            return mochila + (castilloDePiedra.almacen())
+    }
+
+    method poseeArtefacto(artefacto){
+        return (self.poseciones()).contains(artefacto)
+    }
 }
+
+object castilloDePiedra {
+    const almacen =[]
+
+    method almacenarArtefactos (artefactos){
+        artefactos.forEach({artefacto => almacen.add(artefacto)})
+    }
+    method almacen(){
+        return almacen
+    }
+}
+
+
 
 object espadaDelDestino{
 
