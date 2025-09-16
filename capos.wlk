@@ -7,24 +7,29 @@ object rolando {
     
 
     method batallar(){ //REVISAR
+        mochila.forEach({artefacto => artefacto.sumarUso()})
         poderBase = poderBase + 1
+    }
+
+    method poderBase(){
+        return poderBase
     }
 
     method poderBase (_poderBase){
         poderBase = _poderBase
     }
 
-    method sumatorioPoderArtefactos(){
-        mochila.sum({artefacto => artefacto.poderPara(self)})
+    method sumatoriaPoderArtefactos(){
+        return mochila.sum({artefacto => artefacto.poderPara(self)})
     }
 
     method poderTotal(){
-        return poderBase + 5
+        return (poderBase + self.sumatoriaPoderArtefactos())
     }
 
     method recolectar(artefacto){
         ordenEncuentra.add(artefacto)
-        if(self.cantArtefactos() < tamañoMochila){
+        if(mochila.size() < tamañoMochila){
             mochila.add(artefacto)
         }
     }
@@ -33,9 +38,6 @@ object rolando {
         return ordenEncuentra
     }
 
-    method cantArtefactos(){
-        return mochila.size()
-    }
     method artefactos(){
         return mochila
     }
@@ -79,6 +81,9 @@ object espadaDelDestino{
         return personaje.poderBase()/2
        }
     }
+    method sumarUso(){
+        usos = usos + 1
+    }
 }
 
 object libroDeHechizos {
@@ -88,14 +93,26 @@ object libroDeHechizos {
 object collarDivino {
     const poderBase = 3
     var usos = 0
+    
     method poderPara(personaje){
-
+        if(personaje.poderBase() < 6){
+            return poderBase
+        }else {
+            return poderBase + usos
+        }
+    }
+    method sumarUso(){
+        usos = usos + 1
     }
 }
 
 object armaduraDeAceroValyrio {
     const poderBase = 6
+    var usos = 0
     method poderPara(personaje){
         return poderBase
+    }
+    method sumarUso(){
+        usos = usos + 1
     }
 }

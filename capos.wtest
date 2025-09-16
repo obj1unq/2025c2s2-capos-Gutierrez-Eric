@@ -5,21 +5,17 @@ describe "Capos" {
         rolando.recolectar(espadaDelDestino)
         rolando.recolectar(libroDeHechizos)
         rolando.recolectar(collarDivino)
-        assert.equals(2,rolando.cantArtefactos())
         assert.equals(#{espadaDelDestino,libroDeHechizos}, rolando.artefactos())
     }
 
     test "Rolando guarda objetos en el castillo"{
         rolando.recolectar(espadaDelDestino)
         rolando.recolectar(libroDeHechizos)
-        assert.equals(2,rolando.cantArtefactos())
         assert.equals(#{espadaDelDestino,libroDeHechizos}, rolando.artefactos())
         rolando.llegaAlHogar()
-        assert.equals(0,rolando.cantArtefactos())
         assert.equals(#{espadaDelDestino,libroDeHechizos}, castilloDePiedra.almacen())
         rolando.recolectar(collarDivino)
         rolando.llegaAlHogar()
-        assert.equals(0,rolando.cantArtefactos())
         assert.equals(#{espadaDelDestino,libroDeHechizos,collarDivino},castilloDePiedra.almacen())
     }
 
