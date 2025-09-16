@@ -1,7 +1,7 @@
 object rolando {
     var hogar = castilloDePiedra
     var tamañoMochila = 2
-    const mochila = []
+    const mochila = #{}
     const ordenEncuentra = []
     var poderBase = 5
     
@@ -42,12 +42,12 @@ object rolando {
     method nuevoTamañoMochila(_tamañoMochila){
         tamañoMochila = _tamañoMochila
     }
-    method llegaAlCastillo(){
+    method llegaAlHogar(){
         hogar.almacenarArtefactos(mochila)
         mochila.clear()
     }
     method poseciones(){
-            return mochila + (castilloDePiedra.almacen())
+            return mochila.union(hogar.almacen())
     }
 
     method poseeArtefacto(artefacto){
@@ -57,7 +57,7 @@ object rolando {
 }
 
 object castilloDePiedra {
-    const almacen =[]
+    const almacen =#{}
 
     method almacenarArtefactos (artefactos){
         almacen.addAll(artefactos)
