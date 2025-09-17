@@ -1,0 +1,77 @@
+import capos.*
+
+describe "Capos" {
+    test "Rolando puede recolectar 2 artefactos"{
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(libroDeHechizos)
+        rolando.recolectar(collarDivino)
+        assert.equals(#{espadaDelDestino,libroDeHechizos}, rolando.artefactos())
+    }
+
+    test "Rolando guarda objetos en el castillo"{
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(libroDeHechizos)
+        assert.equals(#{espadaDelDestino,libroDeHechizos}, rolando.artefactos())
+        rolando.llegaAlHogar()
+        assert.equals(#{espadaDelDestino,libroDeHechizos}, castilloDePiedra.almacen())
+        rolando.recolectar(collarDivino)
+        rolando.llegaAlHogar()
+        assert.equals(#{espadaDelDestino,libroDeHechizos,collarDivino},castilloDePiedra.almacen())
+    }
+
+    test "Rolando orden en que encuentra objetos"{
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(libroDeHechizos)
+        rolando.recolectar(collarDivino)
+        rolando.llegaAlHogar()
+        rolando.recolectar(armaduraDeAceroValyrio)
+        rolando.recolectar(collarDivino)
+        assert.equals(#{armaduraDeAceroValyrio,collarDivino}, rolando.artefactos())
+        assert.equals([espadaDelDestino,libroDeHechizos,collarDivino,armaduraDeAceroValyrio,collarDivino],rolando.ordenEncuentra())
+    }
+
+    test "Rolando incrementa su poder al  batallar"{
+        rolando.nuevoTamañoMochila(3)
+        rolando.poderBase(5)
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(armaduraDeAceroValyrio)
+        rolando.recolectar(collarDivino)
+        assert.equals(19, rolando.poderTotal())
+        rolando.batallar()
+        assert.equals(19,rolando.poderTotal())
+        rolando.batallar()
+        assert.equals(21.5,rolando.poderTotal())
+        rolando.batallar()
+        assert.equals(24,rolando.poderTotal())
+    }
+
+    test "Rolando conquistar fortaleza"{
+        rolando.nuevoTamañoMochila(3)
+        rolando.poderBase(5)
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(armaduraDeAceroValyrio)
+        rolando.recolectar(collarDivino)
+        rolando.tierrasQuePuedeConquistar(tierraErethia)
+        assert.equals([palacioDeMarmol,torreDeMarfil], rolando.tierrasQuePuedeConquistar(tierraErethia))
+
+    }
+
+    test "Rolando libro de hechizos"{
+        rolando.nuevoTamañoMochila(3)
+        rolando.recolectar(espadaDelDestino)
+        rolando.recolectar(armaduraDeAceroValyrio)
+        rolando.recolectar(collarDivino)
+        rolando.llegaAlHogar()
+        libroDeHechizos.poderes(bendicion)
+        libroDeHechizos.poderes(invisibilidad)
+        libroDeHechizos.poderes(invocacion)
+        rolando.recolectar(libroDeHechizos)
+        assert.equals(4,rolando.sumatoriaPoderArtefactos())
+        rolando.batallar()
+        assert.equals(6,rolando.sumatoriaPoderArtefactos())
+        rolando.batallar()
+        assert.equals(7,rolando.sumatoriaPoderArtefactos())
+        rolando.batallar()
+        assert.equals(0,rolando.sumatoriaPoderArtefactos())
+    }
+}
